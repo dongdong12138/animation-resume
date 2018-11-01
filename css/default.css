@@ -8,7 +8,9 @@
     color: #000;
 }
 
-#code {
-    height: 100vh;
+html {
     overflow: hidden;
+}
+#code {
+    overflow: auto;
 }
