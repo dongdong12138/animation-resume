@@ -39,6 +39,11 @@ var css1 = `
   .codeWrapper {
     width: 50%;
   }
+  @media(max-width: 400px) {
+    .codeWrapper {
+      width: 100%;
+    } 
+  }
   .paperWrapper {
       width: 50%;
       height: 100%;
@@ -46,6 +51,16 @@ var css1 = `
       display: flex;
       justify-content: center;
       align-items: center;
+  }
+  @media(max-width: 400px) {
+    .paperWrapper {
+      width: 100%;
+      height: 50%;
+      background: #444;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   .paper {
       width: 96%;
@@ -144,7 +159,7 @@ function writeCode(prefix, code, fn) {
       window.clearInterval(id)
       fn.call()
     }
-  }, 50)
+  }, 10)
 }
 
 function createPaper(fn) {
@@ -168,7 +183,7 @@ function writeMarkdown(fn) {
       window.clearInterval(id)
       fn.call()
     }
-  }, 50)
+  }, 10)
 }
 
 function markdownToHtml(fn) {
