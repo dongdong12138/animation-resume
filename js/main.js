@@ -144,7 +144,7 @@ function writeCode(prefix, code, fn) {
       window.clearInterval(id)
       fn.call()
     }
-  }, 10)
+  }, 50)
 }
 
 function createPaper(fn) {
@@ -168,7 +168,7 @@ function writeMarkdown(fn) {
       window.clearInterval(id)
       fn.call()
     }
-  }, 10)
+  }, 50)
 }
 
 function markdownToHtml(fn) {
