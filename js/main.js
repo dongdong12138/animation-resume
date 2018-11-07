@@ -61,11 +61,27 @@ var css3 = `
   /* emmmm，MarkDown 格式似乎并不友好 */
   /* 那就把 MarkDown 格式变成 HTML 格式吧 */
 `
+var css4 = `
+  /* 有点丑，给 html 加点样式吧 */
+  .paper h1 {
+    font-size: 20px;
+    color: red;
+  }
+  .paper pre {
+    color: green;
+    padding-left: 1em;
+    margin-top: -10px;
+    margin-bottom: 20px;
+  }
+`
+var css5 = `
+  /* 以上为我的动画简历模板，日后将继续完善 */
+  /* 谢谢观看😊 */
+`
 var md = `
   # 自我介绍
-    我叫 XXX
-    1990 年 1 月出生
-    XXX 学校毕业
+    我叫 董董董
+    1995 年 11 月出生
     自学前端半年
     希望应聘前端开发岗位
   
@@ -78,44 +94,22 @@ var md = `
     3. XXX 画板
 
   # 联系方式
-    - QQ xxxxxxxx
-    - Email xxxxxxxx
-    - 手机 xxxxxxx
+    - QQ 286084845
+    - Email 286084845@qq.com
+    - 手机 183xxxxxxxx
 
-  # 联系方式
-    - QQ xxxxxxxx
-    - Email xxxxxxxx
-    - 手机 xxxxxxx
+  # 意向城市
+    上海、杭州
 
-  # 联系方式
-    - QQ xxxxxxxx
-    - Email xxxxxxxx
-    - 手机 xxxxxxx
+  # 技能特长
+    css、JavaScript
 
-  # 联系方式
-    - QQ xxxxxxxx
-    - Email xxxxxxxx
-    - 手机 xxxxxxx
+  # 爱好
+    跑酷、格斗
 
-  # 联系方式
-    - QQ xxxxxxxx
-    - Email xxxxxxxx
-    - 手机 xxxxxxx
+  # 自我评价
+    一枚二货
 
-  # 联系方式
-    - QQ xxxxxxxx
-    - Email xxxxxxxx
-    - 手机 xxxxxxx
-
-  # 联系方式
-    - QQ xxxxxxxx
-    - Email xxxxxxxx
-    - 手机 xxxxxxx
-
-  # 联系方式
-    - QQ xxxxxxxx
-    - Email xxxxxxxx
-    - 手机 xxxxxxx
 `
 
 writeCode('', css1, () => {
@@ -123,7 +117,13 @@ writeCode('', css1, () => {
     writeCode(css1, css2, () => {
       writeMarkdown(() => {
         writeCode(css1 + css2, css3, () => {
-          markdownToHtml()
+          markdownToHtml(() => {
+            writeCode(css1 + css2 + css3, css4, () => {
+              writeCode(css1 + css2 + css3 + css4, css5, () => {
+                console.log('Done')
+              })
+            })
+          })
         })
       })
     })
@@ -144,7 +144,7 @@ function writeCode(prefix, code, fn) {
       window.clearInterval(id)
       fn.call()
     }
-  }, 50)
+  }, 10)
 }
 
 function createPaper(fn) {
@@ -168,9 +168,10 @@ function writeMarkdown(fn) {
       window.clearInterval(id)
       fn.call()
     }
-  }, 50)
+  }, 10)
 }
 
-function markdownToHtml() {
+function markdownToHtml(fn) {
   paper.innerHTML = marked(md)
+  fn.call()
 }
