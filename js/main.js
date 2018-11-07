@@ -1,6 +1,3 @@
-// var text = `html {color: red;}`
-// var html = Prism.highlight(text, Prism.languages.css)
-
 var css1 = `
   /* 
    * 面试官你好，我是XXX
@@ -66,71 +63,91 @@ var css3 = `
 `
 var md = `
   # 自我介绍
-  我叫 XXX
-  1990 年 1 月出生
-  XXX 学校毕业
-  自学前端半年
-  希望应聘前端开发岗位
+    我叫 XXX
+    1990 年 1 月出生
+    XXX 学校毕业
+    自学前端半年
+    希望应聘前端开发岗位
+  
   # 技能介绍
-  熟悉 JavaScript CSS
+    熟悉 JavaScript CSS
+
   # 项目介绍
-  1. XXX 轮播
-  2. XXX 简历
-  3. XXX 画板
+    1. XXX 轮播
+    2. XXX 简历
+    3. XXX 画板
+
   # 联系方式
-  - QQ xxxxxxxx
-  - Email xxxxxxxx
-  - 手机 xxxxxxx
+    - QQ xxxxxxxx
+    - Email xxxxxxxx
+    - 手机 xxxxxxx
+
   # 联系方式
-  - QQ xxxxxxxx
-  - Email xxxxxxxx
-  - 手机 xxxxxxx
+    - QQ xxxxxxxx
+    - Email xxxxxxxx
+    - 手机 xxxxxxx
+
   # 联系方式
-  - QQ xxxxxxxx
-  - Email xxxxxxxx
-  - 手机 xxxxxxx
+    - QQ xxxxxxxx
+    - Email xxxxxxxx
+    - 手机 xxxxxxx
+
   # 联系方式
-  - QQ xxxxxxxx
-  - Email xxxxxxxx
-  - 手机 xxxxxxx
+    - QQ xxxxxxxx
+    - Email xxxxxxxx
+    - 手机 xxxxxxx
+
   # 联系方式
-  - QQ xxxxxxxx
-  - Email xxxxxxxx
-  - 手机 xxxxxxx
+    - QQ xxxxxxxx
+    - Email xxxxxxxx
+    - 手机 xxxxxxx
+
   # 联系方式
-  - QQ xxxxxxxx
-  - Email xxxxxxxx
-  - 手机 xxxxxxx
+    - QQ xxxxxxxx
+    - Email xxxxxxxx
+    - 手机 xxxxxxx
+
   # 联系方式
-  - QQ xxxxxxxx
-  - Email xxxxxxxx
-  - 手机 xxxxxxx
+    - QQ xxxxxxxx
+    - Email xxxxxxxx
+    - 手机 xxxxxxx
+
   # 联系方式
-  - QQ xxxxxxxx
-  - Email xxxxxxxx
-  - 手机 xxxxxxx
+    - QQ xxxxxxxx
+    - Email xxxxxxxx
+    - 手机 xxxxxxx
 `
 
-var n = 0
-var id = setInterval(() => {
-  n += 1
-  code.innerHTML = css1.substring(0, n)
-  code.innerHTML = Prism.highlight(code.innerHTML, Prism.languages.css)
-  styleTag.innerHTML = css1.substring(0, n)
+writeCode('', css1, () => {
+  createPaper(() => {
+    writeCode(css1, css2, () => {
+      writeMarkdown(() => {
+        writeCode(css1 + css2, css3, () => {
+          markdownToHtml()
+        })
+      })
+    })
+  })
+})
 
-  code.scrollTop = code.scrollHeight
-  if (n >= css1.length) {
-    window.clearInterval(id)
-    fn2()
-    fn3(css1)
-  }
-}, 10)
 
-function fn2() {
-  // <div class="paperWrapper">
-  //       <pre id="paper" class="paper"></pre>
-  //   </div>
+function writeCode(prefix, code, fn) {
+  let domCode = document.querySelector('.code')
+  var n = 0
+  var id = setInterval(() => {
+    n += 1
+    domCode.innerHTML = Prism.highlight(prefix + code.substring(0, n), Prism.languages.css)
+    styleTag.innerHTML = prefix + code.substring(0, n)
 
+    domCode.scrollTop = domCode.scrollHeight
+    if (n >= code.length) {
+      window.clearInterval(id)
+      fn.call()
+    }
+  }, 50)
+}
+
+function createPaper(fn) {
   var paperWrapper = document.createElement('div')
   paperWrapper.className = 'paperWrapper'
   var paper = document.createElement('pre')
@@ -138,25 +155,10 @@ function fn2() {
   paper.className = 'paper'
   paperWrapper.appendChild(paper)
   document.body.appendChild(paperWrapper)
+  fn.call()
 }
 
-function fn3(preResult) {
-  var n = 0
-  var id = setInterval(() => {
-    n += 1
-    code.innerHTML = preResult + css2.substring(0, n)
-    code.innerHTML = Prism.highlight(code.innerHTML, Prism.languages.css)
-    styleTag.innerHTML = preResult + css2.substring(0, n)
-
-    code.scrollTop = code.scrollHeight
-    if (n >= css2.length) {
-      window.clearInterval(id)
-      writeMarkdown()
-    }
-  }, 10)
-}
-
-function writeMarkdown() {
+function writeMarkdown(fn) {
   var n = 0
   var id = setInterval(() => {
     n += 1
@@ -164,25 +166,9 @@ function writeMarkdown() {
     paper.scrollTop = paper.scrollHeight
     if (n >= md.length) {
       window.clearInterval(id)
-      fn4(css1+css2)
+      fn.call()
     }
-  }, 10)
-}
-
-function fn4(preResult) {
-  var n = 0
-  var id = setInterval(() => {
-    n += 1
-    code.innerHTML = preResult + css3.substring(0, n)
-    code.innerHTML = Prism.highlight(code.innerHTML, Prism.languages.css)
-    styleTag.innerHTML = preResult + css3.substring(0, n)
-
-    code.scrollTop = code.scrollHeight
-    if (n >= css3.length) {
-      window.clearInterval(id)
-      markdownToHtml()
-    }
-  }, 10)
+  }, 50)
 }
 
 function markdownToHtml() {
